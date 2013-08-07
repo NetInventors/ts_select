@@ -101,10 +101,12 @@ class tx_tsselect_pi1 extends tslib_pibase {
 		}
 		
 		// TypoScript FIELD Startpoint setzen
+		$data = $this->cObj->data; // Die original Daten zwischen speichern
 		$this->cObj->start($cObjAr);
 		
 		// Ausfuehren
 		$content = $this->parseTypoScriptObj($objType,$objArray);
+		$this->cObj->start($data,'tt_content'); // Reset des CURRENT Wert damit die Content ID wieder eingefuegt werden kann
 		
 		// Ergebnis liefern
 		return $this->pi_wrapInBaseClass($content);

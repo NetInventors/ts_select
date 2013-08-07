@@ -2,16 +2,16 @@
 You can define typoscript objects (like lib.myTsObj)
 and the BE User is able to select it like a Content Element.
 
-## Version 1.2.2
+## Version 1.2.3
 
 
 
 
 <table>
-	<tr><td>Version</td><td>1.2.2 beta</td></tr>
-	<tr><td>Release date</td><td>16. March 2011</td></tr>
+	<tr><td>Version</td><td>1.2.3 beta</td></tr>
+	<tr><td>Release date</td><td>19. March 2011</td></tr>
 	<tr><td>Author</td><td>Hendrik Reimers</td></tr>
-	<tr><td>Comment</td><td>Fixed the PHP Warning "on line 90"</td></tr>
+	<tr><td>Comment</td><td>Bugfix: Typo3 couldnt catched the UID with TS. Thanks to Marc Fell</td></tr>
 </table>
 
 ## !! Attention !!
