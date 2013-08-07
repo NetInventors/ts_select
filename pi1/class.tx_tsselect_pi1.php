@@ -75,24 +75,26 @@ class tx_tsselect_pi1 extends tslib_pibase {
 		// Extra Auswahl pruefen
 		$cObjAr = array();
 		if ( ($this->conf['extMode'] == 'object') || ($extMgrConf['disableExtraSelect'] == 1) ) {
-			// Objektdaten laden
-			$dbObj = t3lib_div::makeInstance('t3lib_loadDBGroup');
-			$dbObj->fromTC = 0;
-			$dbObj->start($this->conf['extObj'],'*');
-			$dbObj->getFromDB();
-			
-			// Aktuelle Auswahl laden
-			$resultTbl = $dbObj->itemArray[0]['table'];
-			$resultUid = $dbObj->itemArray[0]['id'];
-			$resultArr = $dbObj->results[$resultTbl][$resultUid];
-			
-			// Ergebnis dem .field im TypoScript zuordnen
-			foreach ( $resultArr as $key => $val ) {
-			    $cObjAr[$key] = $val;
+			if ( !empty($this->conf['extObj']) ) {
+				// Objektdaten laden
+				$dbObj = t3lib_div::makeInstance('t3lib_loadDBGroup');
+				$dbObj->fromTC = 0;
+				$dbObj->start($this->conf['extObj'],'*');
+				$dbObj->getFromDB();
+				
+				// Aktuelle Auswahl laden
+				$resultTbl = $dbObj->itemArray[0]['table'];
+				$resultUid = $dbObj->itemArray[0]['id'];
+				$resultArr = $dbObj->results[$resultTbl][$resultUid];
+				
+				// Ergebnis dem .field im TypoScript zuordnen
+				foreach ( $resultArr as $key => $val ) {
+					$cObjAr[$key] = $val;
+				}
+				
+				// Speicher freigeben
+				unset($dbObj,$resultUid,$resultTbl,$resultArr,$key,$val);
 			}
-			
-			// Speicher freigeben
-			unset($dbObj,$resultUid,$resultTbl,$resultArr,$key,$val);
 		}
 		if ( ($this->conf['extMode'] == 'text') || ($extMgrConf['disableExtraSelect'] == 1) ) {
 			$cObjAr['flex_text'] = $this->conf['extText'];
