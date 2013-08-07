@@ -2,16 +2,16 @@
 You can define typoscript objects (like lib.myTsObj)
 and the BE User is able to select it like a Content Element.
 
-## Version 1.0.0
+## Version 1.0.2
 
 
 
 
 <table>
-	<tr><td>Version</td><td>1.0.0 beta</td></tr>
-	<tr><td>Release date</td><td>28. January 2011</td></tr>
+	<tr><td>Version</td><td>1.0.2 beta</td></tr>
+	<tr><td>Release date</td><td>07. February 2011</td></tr>
 	<tr><td>Author</td><td>Hendrik Reimers</td></tr>
-	<tr><td>Comment</td><td>Initial TER release</td></tr>
+	<tr><td>Comment</td><td>very little update</td></tr>
 </table>
 
 ## !! Attention !!

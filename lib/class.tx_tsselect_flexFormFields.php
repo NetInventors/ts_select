@@ -6,13 +6,13 @@ class tx_tsselect_flexFormFields {
 	var $obj_page = null;
 	
 	function addFields($config) {
-		$bool_success = $this->init($config);
-		if(!$bool_success) {
+		$arr_list = $this->loadTS($config);
+		if( empty($arr_list) ) {
 			return $config;
 		}
 		
 		// TypoScript configuration for extension templates
-		$arr_list = $this->obj_TypoScript->setup['plugin.']['tx_tsselect_pi1.']['objList.'];
+		$arr_list = $arr_list['plugin.']['tx_tsselect_pi1.']['objList.'];
 		
 		// Sortieren
 		uksort($arr_list,create_function('$a,$b','return strcmp($a["title"], $b["title"]);'));
@@ -52,78 +52,29 @@ class tx_tsselect_flexFormFields {
 		return false;
 	}
 	
-	private function init($arr_pluginConf) {
-		// Require classes
-		require_once(PATH_t3lib.'class.t3lib_page.php');
-		require_once(PATH_t3lib.'class.t3lib_tstemplate.php');
-		require_once(PATH_t3lib.'class.t3lib_tsparser_ext.php');
-		  
-		// Init page id and the page object
-		$this->init_pageUid($arr_pluginConf);
-		$this->init_pageObj($arr_pluginConf);
-		
-		// Init agregrated TypoScript
-		$arr_rows_of_all_pages_inRootLine = $this->obj_page->getRootLine($this->pid);
-		if (empty($arr_rows_of_all_pages_inRootLine)) {
-			return false;
+	// Load the TypoScript Conf Array in the Backend
+	private function loadTS(&$conf,$pageUid = 0) {
+		if ( intval($pageUid) > 0 ) {
+			$pid = intval($pageUid);
+		} elseif ( intval($conf['row']['pid']) > 0 ) {
+			$pid = intval($conf['row']['pid']);
+		} else {
+			$url = $_GET['returnUrl'];
+			$pid = intval(substr($str_url, strpos($str_url, 'id=') + 3));
 		}
 		
-		$this->init_tsObj($arr_rows_of_all_pages_inRootLine);
+		$ps  = t3lib_div::makeInstance('t3lib_pageSelect');
 		
-		return true;
-	}
-	
-	private function init_pageObj($arr_pluginConf) {
-		if(!empty($this->obj_page)) {
-			return false;
-		}
+		$rootline = $ps->getRootLine($pid);
+		if ( empty($rootline) ) return false;
 		
-		// Set current page object
-		$this->obj_page = t3lib_div::makeInstance('t3lib_pageSelect');
+		$tsObj = t3lib_div::makeInstance('t3lib_tsparser_ext');
+		$tsObj->tt_track = 0;
+		$tsObj->init();
+		$tsObj->runThroughTemplates($rootline);
+		$tsObj->generateConfig();
 		
-		return false;
-	}
-	
-	private function init_pageUid($arr_pluginConf) {
-		if(!empty($this->pid)) {
-			return false;
-		}
-		
-		// Update: Get current page id from the plugin
-		$int_pid = false;
-		if( $arr_pluginConf['row']['pid'] > 0 ) {
-			$int_pid = $arr_pluginConf['row']['pid'];
-		}
-		// Update: Get current page id from the plugin
-		
-		// New: Get current page id from the current URL
-		if(!$int_pid) {
-			// Get backend URL - something like .../alt_doc.php?returnUrl=db_list.php&id%3D2926%26table%3D%26imagemode%3D1&edit[tt_content][1734]=edit
-			$str_url    = $_GET['returnUrl'];
-			
-			// Get curent page id
-			$int_pid = intval(substr($str_url, strpos($str_url, 'id=')+3));
-		}
-		// New: Get current page id from the current URL
-		
-		// Set current page id
-		$this->pid      = $int_pid;
-		
-		return false;
-	}
-	
-	private function init_tsObj($arr_rows_of_all_pages_inRootLine) {
-		if(!empty($this->obj_TypoScript)) {
-			return false;
-		}
-		
-		$this->obj_TypoScript = t3lib_div::makeInstance('t3lib_tsparser_ext');
-		$this->obj_TypoScript->tt_track = 0;
-		$this->obj_TypoScript->init();
-		$this->obj_TypoScript->runThroughTemplates($arr_rows_of_all_pages_inRootLine);
-		$this->obj_TypoScript->generateConfig();
-		
-		return false;
+		return $tsObj->setup;
 	}
 }
 
