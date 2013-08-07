@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "ts_select".
  *
- * Auto generated 07-08-2013 11:04
+ * Auto generated 07-08-2013 11:05
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -16,7 +16,7 @@ $EM_CONF[$_EXTKEY] = array (
 and the BE User is able to select it like a Content Element.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '1.0.2',
+	'version' => '1.1.0',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
