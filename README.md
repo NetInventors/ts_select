@@ -2,16 +2,16 @@
 You can define typoscript objects (like lib.myTsObj)
 and the BE User is able to select it like a Content Element.
 
-## Version 1.2.0
+## Version 1.2.1
 
 
 
 
 <table>
-	<tr><td>Version</td><td>1.2.0 beta</td></tr>
+	<tr><td>Version</td><td>1.2.1 beta</td></tr>
 	<tr><td>Release date</td><td>22. February 2011</td></tr>
 	<tr><td>Author</td><td>Hendrik Reimers</td></tr>
-	<tr><td>Comment</td><td>New Features, New Icons, Updated locallang, see manual for details!</td></tr>
+	<tr><td>Comment</td><td>Small Bugfix; Added little feature in extMgr Config</td></tr>
 </table>
 
 ## !! Attention !!

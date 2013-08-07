@@ -69,10 +69,12 @@ class tx_tsselect_pi1 extends tslib_pibase {
 		$this->conf['extText'] = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'text', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'text', 'sEXTRA') : $this->conf['extra.']['text'];
 		$this->conf['extObj']  = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'object', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'object', 'sEXTRA') : $this->conf['extra.']['object'];
 		
+		// ExtMgr Conf laden
+		$extMgrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ts_select']);
+		
 		// Extra Auswahl pruefen
-		if ( $this->conf['extMode'] == 'text' ) {
-			$this->cObj->start(array('flex_text' => $this->conf['extText']));
-		} elseif ( $this->conf['extMode'] == 'object' ) {
+		$cObjAr = array();
+		if ( ($this->conf['extMode'] == 'object') || ($extMgrConf['disableExtraSelect'] == 1) ) {
 			// Objektdaten laden
 			$dbObj = t3lib_div::makeInstance('t3lib_loadDBGroup');
 			$dbObj->fromTC = 0;
@@ -84,12 +86,20 @@ class tx_tsselect_pi1 extends tslib_pibase {
 			$resultUid = $dbObj->itemArray[0]['id'];
 			$resultArr = $dbObj->results[$resultTbl][$resultUid];
 			
-			// Speicher freigeben
-			unset($dbObj,$resultUid,$resultTbl);
-			
 			// Ergebnis dem .field im TypoScript zuordnen
-			$this->cObj->start($resultArr);
+			foreach ( $resultArr as $key => $val ) {
+			    $cObjAr[$key] = $val;
+			}
+			
+			// Speicher freigeben
+			unset($dbObj,$resultUid,$resultTbl,$resultArr,$key,$val);
 		}
+		if ( ($this->conf['extMode'] == 'text') || ($extMgrConf['disableExtraSelect'] == 1) ) {
+			$cObjAr['flex_text'] = $this->conf['extText'];
+		}
+		
+		// TypoScript FIELD Startpoint setzen
+		$this->cObj->start($cObjAr);
 		
 		// Ausfuehren
 		$content = $this->parseTypoScriptObj($objType,$objArray);

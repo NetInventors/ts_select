@@ -1,0 +1,2 @@
+# cat=basic/enable; type=boolean; label=Disables the Dropdown in the Extra Sheet and shows both fields. Maybe easier to use with TCEFORM.
+disableExtraSelect = 0

@@ -29,35 +29,9 @@
         </TCEforms>
         <type>array</type>
         <el>
-	  <tsMode>
-	    <TCEforms>
-	      <label>LLL:EXT:ts_select/pi1/locallang.xml:ff.list_mode.title</label>
-	      <onChange>reload</onChange>
-	      <config>
-	        <type>select</type>
-	        <size>1</size>
-	        <maxitems>1</maxitems>
-	        <items>
-	          <numIndex index="0" type="array">
-		    <numIndex index="0">LLL:EXT:ts_select/pi1/locallang.xml:ff.list_mode.1</numIndex>
-		    <numIndex index="1">0</numIndex>
-		  </numIndex>
-		  <numIndex index="1" type="array">
-		    <numIndex index="0">LLL:EXT:ts_select/pi1/locallang.xml:ff.list_mode.2</numIndex>
-		    <numIndex index="1">text</numIndex>
-		  </numIndex>
-		  <numIndex index="2" type="array">
-		    <numIndex index="0">LLL:EXT:ts_select/pi1/locallang.xml:ff.list_mode.3</numIndex>
-		    <numIndex index="1">object</numIndex>
-		  </numIndex>
-	        </items>
-	      </config>
-	    </TCEforms>
-	  </tsMode>
 	  <text>
 	    <TCEforms>
 	      <label>LLL:EXT:ts_select/pi1/locallang.xml:ff.extra.textTitle</label>
-	      <displayCond>FIELD:tsMode:=:text</displayCond>
 	      <config>
 	        <type>text</type>
 	      </config>
@@ -66,7 +40,6 @@
 	  <object>
 	    <TCEforms>
 	      <label>LLL:EXT:ts_select/pi1/locallang.xml:ff.extra.objTitle</label>
-	      <displayCond>FIELD:tsMode:=:object</displayCond>
 	      <config>
                 <type>group</type>
                 <internal_type>db</internal_type>
