@@ -65,9 +65,10 @@ class tx_tsselect_pi1 extends tslib_pibase {
 		$objArray = &$this->conf['objList.'][$this->conf['selTS'].'.']['cObject.'];
 		
 		// Extra Auswahl laden
-		$this->conf['extMode'] = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'tsMode', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'tsMode', 'sEXTRA') : $this->conf['extra.']['tsMode'];
-		$this->conf['extText'] = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'text', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'text', 'sEXTRA') : $this->conf['extra.']['text'];
-		$this->conf['extObj']  = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'object', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'object', 'sEXTRA') : $this->conf['extra.']['object'];
+		$this->conf['extMode']  = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'tsMode', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'tsMode', 'sEXTRA') : $this->conf['extra.']['tsMode'];
+		$this->conf['extText']  = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'text', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'text', 'sEXTRA') : $this->conf['extra.']['text'];
+		$this->conf['extObj']   = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'object', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'object', 'sEXTRA') : $this->conf['extra.']['object'];
+		$this->conf['extFile']  = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'file', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'file', 'sEXTRA') : $this->conf['extra.']['file'];
 		
 		// ExtMgr Conf laden
 		$extMgrConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ts_select']);
@@ -98,6 +99,10 @@ class tx_tsselect_pi1 extends tslib_pibase {
 		}
 		if ( ($this->conf['extMode'] == 'text') || ($extMgrConf['disableExtraSelect'] == 1) ) {
 			$cObjAr['flex_text'] = $this->conf['extText'];
+		}
+		
+		if ( ($this->conf['extMode'] == 'file') || ($extMgrConf['disableExtraSelect'] == 1) ) {
+			$cObjAr['flex_file'] = $this->conf['extFile'];
 		}
 		
 		// TypoScript FIELD Startpoint setzen

@@ -12,9 +12,11 @@
 			<label index="ff.list_mode.1">Off</label>
 			<label index="ff.list_mode.2">Text</label>
 			<label index="ff.list_mode.3">Object</label>
+			<label index="ff.list_mode.4">File</label>
 			<label index="ff.display">Display</label>
 			<label index="ff.extra.textTitle">Enter Text</label>
 			<label index="ff.extra.objTitle">Object Selection</label>
+			<label index="ff.extra.fileTitle">Datei</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="ff.title.general">Allgemein</label>
@@ -23,9 +25,11 @@
 			<label index="ff.list_mode.1">Aus</label>
 			<label index="ff.list_mode.2">Text</label>
 			<label index="ff.list_mode.3">Objekt</label>
+			<label index="ff.list_mode.4">Datei</label>
 			<label index="ff.display">Anzeigen</label>
 			<label index="ff.extra.textTitle">Texteingabe</label>
 			<label index="ff.extra.objTitle">Objekt-Auswahl</label>
+			<label index="ff.extra.fileTitle">Datei</label>
 		</languageKey>
 	</data>
 </T3locallang>

@@ -1,3 +1,18 @@
+# Here you can set the default values if nothing is set in the flexform (plugin content element)
+plugin.tx_tsselect_pi1.extra {
+    # Selected Extra Mode (off,text,object,file)
+    tsMode = text
+    
+    # Predefined Text
+    text = This is some text
+    
+    # Preselected object (in this case a content element with uid 10
+    object = tt_content_10
+    
+    # Preselected file
+    file = fileadmin/some_file.txt
+}
+
 plugin.tx_tsselect_pi1.objList {
     sample_two {
         title = Example Two
@@ -8,7 +23,34 @@ plugin.tx_tsselect_pi1.objList {
     sample_one {
         title = Example One
         cObject = TEXT
-        cObject.value = Sample TS Obj Output
+        cObject.value = Sample TS Output
+    }
+    
+    # Get the Text of the Plugin Flexform
+    textMode {
+        title = Text-Modus
+        
+        cObject = TEXT
+        cObject.field = flex_text
+        cObject.wrap = <strong>Text of the Flexform:</strong><br>|
+    }
+    
+    # Get the Data of the Flexform selected datasource (in this case a page selected)
+    objMode {
+        title = Object-Mode
+        
+        cObject = TEXT
+        cObject.field = title
+        cObject.noTrimWrap = |<strong>Pagetitle of selection:</strong> ||
+    }
+    
+    # Load the content from a selected file (which will be automaticly placed in the ext uploads folder)
+    fileSampleMode {
+        title = File-Output
+        
+        cObject = FILE
+        cObject.file = uploads/tx_tsselect/
+        cObject.file.dataWrap = |{field:flex_file}
     }
 }
 
