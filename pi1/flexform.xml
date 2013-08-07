@@ -1,0 +1,26 @@
+<T3DataStructure>
+  <meta>
+    <langDisable>1</langDisable>
+  </meta>
+  <sheets>
+    <sDEF>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>TypoScript Object</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+          <selObj>
+            <TCEforms>
+              <label>What to display?</label>
+              <config>
+			    <type>select</type>
+				<itemsProcFunc>tx_tsselect_flexFormFields->addFields</itemsProcFunc>
+			  </config>
+            </TCEforms>
+          </selObj>   
+        </el>
+      </ROOT>
+    </sDEF>
+  </sheets>
+</T3DataStructure>

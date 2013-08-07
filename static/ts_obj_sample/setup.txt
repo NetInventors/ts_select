@@ -1,0 +1,19 @@
+plugin.tx_tsselect_pi1.objList {
+    sample_two {
+        title = Example Two
+        cObject = TEXT
+        cObject.value = Second Example
+    }
+
+    sample_one {
+        title = Example One
+        cObject = TEXT
+        cObject.value = Sample TS Obj Output
+    }
+}
+
+#
+# Example to explicit hide an Element in
+# the Backend Plugin for specific Backend Usergroups
+#
+plugin.tx_tsselect_pi1.objList.sample_two.hideBeGroups = 1,2
