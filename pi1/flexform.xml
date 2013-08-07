@@ -6,13 +6,13 @@
     <sDEF>
       <ROOT>
         <TCEforms>
-          <sheetTitle>TypoScript Object</sheetTitle>
+          <sheetTitle>LLL:EXT:ts_select/pi1/locallang.xml:ff.title.general</sheetTitle>
         </TCEforms>
         <type>array</type>
         <el>
           <selObj>
             <TCEforms>
-              <label>What to display?</label>
+              <label>LLL:EXT:ts_select/pi1/locallang.xml:ff.display</label>
               <config>
 			    <type>select</type>
 				<itemsProcFunc>tx_tsselect_flexFormFields->addFields</itemsProcFunc>
@@ -22,5 +22,64 @@
         </el>
       </ROOT>
     </sDEF>
+    <sEXTRA>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>LLL:EXT:ts_select/pi1/locallang.xml:ff.title.extra</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+	  <tsMode>
+	    <TCEforms>
+	      <label>LLL:EXT:ts_select/pi1/locallang.xml:ff.list_mode.title</label>
+	      <onChange>reload</onChange>
+	      <config>
+	        <type>select</type>
+	        <size>1</size>
+	        <maxitems>1</maxitems>
+	        <items>
+	          <numIndex index="0" type="array">
+		    <numIndex index="0">LLL:EXT:ts_select/pi1/locallang.xml:ff.list_mode.1</numIndex>
+		    <numIndex index="1">0</numIndex>
+		  </numIndex>
+		  <numIndex index="1" type="array">
+		    <numIndex index="0">LLL:EXT:ts_select/pi1/locallang.xml:ff.list_mode.2</numIndex>
+		    <numIndex index="1">text</numIndex>
+		  </numIndex>
+		  <numIndex index="2" type="array">
+		    <numIndex index="0">LLL:EXT:ts_select/pi1/locallang.xml:ff.list_mode.3</numIndex>
+		    <numIndex index="1">object</numIndex>
+		  </numIndex>
+	        </items>
+	      </config>
+	    </TCEforms>
+	  </tsMode>
+	  <text>
+	    <TCEforms>
+	      <label>LLL:EXT:ts_select/pi1/locallang.xml:ff.extra.textTitle</label>
+	      <displayCond>FIELD:tsMode:=:text</displayCond>
+	      <config>
+	        <type>text</type>
+	      </config>
+	    </TCEforms>
+	  </text>
+	  <object>
+	    <TCEforms>
+	      <label>LLL:EXT:ts_select/pi1/locallang.xml:ff.extra.objTitle</label>
+	      <displayCond>FIELD:tsMode:=:object</displayCond>
+	      <config>
+                <type>group</type>
+                <internal_type>db</internal_type>
+                <allowed>*</allowed>
+                <size>1</size>
+                <maxitems>1</maxitems>
+                <minitems>1</minitems>
+                <show_thumbs>0</show_thumbs>
+	      </config>
+	    </TCEforms>
+	  </object>
+        </el>
+      </ROOT>
+    </sEXTRA>
   </sheets>
-</T3DataStructure>
+</T3DataStructure>

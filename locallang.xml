@@ -10,7 +10,7 @@
 			<label index="pi1_plus_wiz_description">Select a TypoScript Object as Content Element</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="pi1_title">TypoScript Object Select</label>
+			<label index="pi1_title">TypoScript Objekt Auswahl</label>
 			<label index="pi1_plus_wiz_description">Wähle ein TypoScript Objekt als Content Element</label>
 		</languageKey>
 	</data>

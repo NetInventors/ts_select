@@ -6,11 +6,26 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="list_mode_1">Mode 1</label>
-			<label index="list_mode_2">Mode 2</label>
-			<label index="list_mode_3">Mode 3</label>
-			<label index="back">Back</label>
-			<label index="submit_button_label">Click here to submit value</label>
+			<label index="ff.title.general">General</label>
+			<label index="ff.title.extra">Extras</label>
+			<label index="ff.list_mode.title">Extra Mode</label>
+			<label index="ff.list_mode.1">Off</label>
+			<label index="ff.list_mode.2">Text</label>
+			<label index="ff.list_mode.3">Object</label>
+			<label index="ff.display">Display</label>
+			<label index="ff.extra.textTitle">Enter Text</label>
+			<label index="ff.extra.objTitle">Object Selection</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="ff.title.general">Allgemein</label>
+			<label index="ff.title.extra">Extras</label>
+			<label index="ff.list_mode.title">Extra Modus</label>
+			<label index="ff.list_mode.1">Aus</label>
+			<label index="ff.list_mode.2">Text</label>
+			<label index="ff.list_mode.3">Objekt</label>
+			<label index="ff.display">Anzeigen</label>
+			<label index="ff.extra.textTitle">Texteingabe</label>
+			<label index="ff.extra.objTitle">Objekt-Auswahl</label>
 		</languageKey>
 	</data>
 </T3locallang>

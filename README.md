@@ -2,16 +2,16 @@
 You can define typoscript objects (like lib.myTsObj)
 and the BE User is able to select it like a Content Element.
 
-## Version 1.1.0
+## Version 1.2.0
 
 
 
 
 <table>
-	<tr><td>Version</td><td>1.1.0 beta</td></tr>
-	<tr><td>Release date</td><td>07. February 2011</td></tr>
+	<tr><td>Version</td><td>1.2.0 beta</td></tr>
+	<tr><td>Release date</td><td>22. February 2011</td></tr>
 	<tr><td>Author</td><td>Hendrik Reimers</td></tr>
-	<tr><td>Comment</td><td>NEW FEATURE: Markers for Sub-Select with XPATH; Small Bugfixes; See Manual and static TS for more.</td></tr>
+	<tr><td>Comment</td><td>New Features, New Icons, Updated locallang, see manual for details!</td></tr>
 </table>
 
 ## !! Attention !!

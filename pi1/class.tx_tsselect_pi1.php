@@ -55,15 +55,46 @@ class tx_tsselect_pi1 extends tslib_pibase {
 		$this->pi_setPiVarDefaults();
 		$this->pi_loadLL();
 		
+		// TypoScript Auswahl laden
 		$this->pi_initPIflexForm(); // Einmal am Anfang der main-Funktion
-		$this->conf['selObj'] = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'selObj', 'sDEF')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'selObj', 'sDEF') : $this->conf['selObj'];
-		$this->conf['selObj'] = ( $this->conf['selObj'][strlen($this->conf['selObj'])-1] == '.' ) ? substr($this->conf['selObj'],0,strlen($this->conf['selObj']) - 1) : $this->conf['selObj'];
+		$this->conf['selTS'] = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'selObj', 'sDEF')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'selObj', 'sDEF') : $this->conf['selTS'];
+		$this->conf['selTS'] = ( $this->conf['selTS'][strlen($this->conf['selTS'])-1] == '.' ) ? substr($this->conf['selTS'],0,strlen($this->conf['selTS']) - 1) : $this->conf['selTS'];
 		
-		$objType  = &$this->conf['objList.'][$this->conf['selObj'].'.']['cObject'];
-		$objArray = &$this->conf['objList.'][$this->conf['selObj'].'.']['cObject.'];
+		// Zuordnung (KEY / VAL)
+		$objType  = &$this->conf['objList.'][$this->conf['selTS'].'.']['cObject'];
+		$objArray = &$this->conf['objList.'][$this->conf['selTS'].'.']['cObject.'];
 		
+		// Extra Auswahl laden
+		$this->conf['extMode'] = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'tsMode', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'tsMode', 'sEXTRA') : $this->conf['extra.']['tsMode'];
+		$this->conf['extText'] = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'text', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'text', 'sEXTRA') : $this->conf['extra.']['text'];
+		$this->conf['extObj']  = ( strlen($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'object', 'sEXTRA')) > 0 ) ? $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'object', 'sEXTRA') : $this->conf['extra.']['object'];
+		
+		// Extra Auswahl pruefen
+		if ( $this->conf['extMode'] == 'text' ) {
+			$this->cObj->start(array('flex_text' => $this->conf['extText']));
+		} elseif ( $this->conf['extMode'] == 'object' ) {
+			// Objektdaten laden
+			$dbObj = t3lib_div::makeInstance('t3lib_loadDBGroup');
+			$dbObj->fromTC = 0;
+			$dbObj->start($this->conf['extObj'],'*');
+			$dbObj->getFromDB();
+			
+			// Aktuelle Auswahl laden
+			$resultTbl = $dbObj->itemArray[0]['table'];
+			$resultUid = $dbObj->itemArray[0]['id'];
+			$resultArr = $dbObj->results[$resultTbl][$resultUid];
+			
+			// Speicher freigeben
+			unset($dbObj,$resultUid,$resultTbl);
+			
+			// Ergebnis dem .field im TypoScript zuordnen
+			$this->cObj->start($resultArr);
+		}
+		
+		// Ausfuehren
 		$content = $this->parseTypoScriptObj($objType,$objArray);
 		
+		// Ergebnis liefern
 		return $this->pi_wrapInBaseClass($content);
 	}
 	
