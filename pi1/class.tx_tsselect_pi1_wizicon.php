@@ -67,7 +67,13 @@ class tx_tsselect_pi1_wizicon {
 					 */
 					function includeLocalLang()	{
 						$llFile = t3lib_extMgm::extPath('ts_select').'locallang.xml';
-						$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
+						if ($t3Version >= 4007000) {
+							$LOCAL_LANG = t3lib_l10n_parser_Llxml::getParsedData($llFile, $GLOBALS['LANG']->lang);
+						} else if ($t3Version >= 4006000) {
+							$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
+						} else {
+							$LOCAL_LANG = t3lib_div::readLLfile($llFile, $GLOBALS['LANG']->lang);
+						}
 
 						return $LOCAL_LANG;
 					}
