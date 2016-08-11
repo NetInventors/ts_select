@@ -15,7 +15,10 @@ class tx_tsselect_flexFormFields {
         $arr_list = $arr_list['plugin.']['tx_tsselect_pi1.']['objList.'];
 
         // Sortieren
-        uksort($arr_list,create_function('$a,$b','return strcmp($a["title"], $b["title"]);'));
+        usort($arr_list, create_function(
+            '$a, $b',
+            'return strcmp($a["title"], $b["title"]);'
+        ));
 
         // Ausgabe
         $optionList = array();
@@ -60,15 +63,24 @@ class tx_tsselect_flexFormFields {
             $pid = intval($conf['row']['pid']);
         } else {
             $url = $_GET['returnUrl'];
-            $pid = intval(substr($str_url, strpos($str_url, 'id=') + 3));
+            $pid = intval(substr($url, strpos($url, 'id=') + 3));
         }
 
-        $ps  = t3lib_div::makeInstance('t3lib_pageSelect');
+        //$ps  = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_pageSelect');
+        $rootline = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Utility\RootlineUtility::class,
+            $pid
+        );
 
-        $rootline = $ps->getRootLine($pid);
+        //$rootline = $ps->getRootLine($pid);
+        $rootline = $rootline->get();
         if ( empty($rootline) ) return false;
 
-        $tsObj = t3lib_div::makeInstance('t3lib_tsparser_ext');
+        /** @var \TYPO3\CMS\Core\TypoScript\ExtendedTemplateService $tsObj */
+        $tsObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\CMS\Core\TypoScript\ExtendedTemplateService'
+        );
+
         $tsObj->tt_track = 0;
         $tsObj->init();
         $tsObj->runThroughTemplates($rootline);
