@@ -6,13 +6,12 @@ if (! defined('TYPO3_MODE')) {
 
 $extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY);
 
-\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tt_content');
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] = 'layout,select_key,pages,recursive';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(array(
    'LLL:EXT:ts_select/locallang_db.xml:tt_content.list_type_pi1',
    $_EXTKEY . '_pi1',
-    t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif'
 ), 'list_type');
 
 $tss_confAr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ts_select']);
