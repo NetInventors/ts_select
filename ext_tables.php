@@ -28,20 +28,23 @@ if (1 === (int) $tss_confAr['disableExtraSelect']) {
 );
 
 include_once $extensionPath . 'lib/class.tx_tsselect_flexFormFields.php';
-unset(
-    $extensionPath,
-    $tss_confAr,
-    $tss_flexForm
-);
 
 if (TYPO3_MODE == 'BE') {
     //$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_tsselect_pi1_wizicon'] = $extensionPath . 'pi1/class.tx_tsselect_pi1_wizicon.php';
+    $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_tsselect_pi1_wizicon'] =
+        $extensionPath . 'pi1/class.tx_tsselect_pi1_wizicon.php';
 }
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
     $_EXTKEY,
     'static/ts_obj_sample/',
     'TS Select (Sample)'
+);
+
+unset(
+    $extensionPath,
+    $tss_confAr,
+    $tss_flexForm
 );
 
 ?>

@@ -37,47 +37,47 @@
  * @package	TYPO3
  * @subpackage	tx_tsselect
  */
-class tx_tsselect_pi1_wizicon {
+class tx_tsselect_pi1_wizicon
+{
+	/**
+	 * Processing the wizard items array
+	 *
+	 * @param	array		$wizardItems: The wizard items
+	 * @return	Modified array with wizard items
+	 */
+	public function proc($wizardItems)
+	{
+		global $LANG;
 
-					/**
-					 * Processing the wizard items array
-					 *
-					 * @param	array		$wizardItems: The wizard items
-					 * @return	Modified array with wizard items
-					 */
-					function proc($wizardItems)	{
-						global $LANG;
+		$LL = $this->includeLocalLang();
 
-						$LL = $this->includeLocalLang();
+		$wizardItems['plugins_tx_tsselect_pi1'] = array(
+			'icon'        => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('ts_select').'pi1/ce_wiz.gif',
+			'title'       => $LANG->getLLL('pi1_title',$LL),
+			'description' => $LANG->getLLL('pi1_plus_wiz_description',$LL),
+			'params'	  =>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=ts_select_pi1'
+		);
 
-						$wizardItems['plugins_tx_tsselect_pi1'] = array(
-							'icon'=>t3lib_extMgm::extRelPath('ts_select').'pi1/ce_wiz.gif',
-							'title'=>$LANG->getLLL('pi1_title',$LL),
-							'description'=>$LANG->getLLL('pi1_plus_wiz_description',$LL),
-							'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=ts_select_pi1'
-						);
+		return $wizardItems;
+	}
 
-						return $wizardItems;
-					}
+	/**
+	 * Reads the [extDir]/locallang.xml and returns the $LOCAL_LANG array found in that file.
+	 *
+	 * @return	The array with language labels
+	 */
+	public function includeLocalLang()
+	{
+		$llFile 			= \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('ts_select') . 'locallang.xml';
+		$localizationParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+			'TYPO3\CMS\Core\Localization\Parser\LocallangXmlParser'
+		);
 
-					/**
-					 * Reads the [extDir]/locallang.xml and returns the $LOCAL_LANG array found in that file.
-					 *
-					 * @return	The array with language labels
-					 */
-					function includeLocalLang()	{
-						$llFile = t3lib_extMgm::extPath('ts_select').'locallang.xml';
-						if ($t3Version >= 4007000) {
-							$LOCAL_LANG = t3lib_l10n_parser_Llxml::getParsedData($llFile, $GLOBALS['LANG']->lang);
-						} else if ($t3Version >= 4006000) {
-							$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
-						} else {
-							$LOCAL_LANG = t3lib_div::readLLfile($llFile, $GLOBALS['LANG']->lang);
-						}
+		$LOCAL_LANG 		= $localizationParser->getParsedData($llFile, $GLOBALS['LANG']->lang);
 
-						return $LOCAL_LANG;
-					}
-				}
+		return $LOCAL_LANG;
+	}
+}
 
 
 
