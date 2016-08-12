@@ -99,8 +99,12 @@ class tx_tsselect_pi1 extends AbstractPlugin
         if (($this->conf['extMode'] == 'object') || ($extMgrConf['disableExtraSelect'] == 1)) {
             if (! empty($this->conf['extObj'])) {
                 // Objektdaten laden
-                $dbObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_loadDBGroup');
-                $dbObj->fromTC = 0;
+                /** @var \TYPO3\CMS\Core\Database\RelationHandler $dbObj */
+                $dbObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+                    'TYPO3\CMS\Core\Database\RelationHandler'
+                );
+
+                $dbObj->setFetchAllFields(true);
                 $dbObj->start($this->conf['extObj'], '*');
                 $dbObj->getFromDB();
 

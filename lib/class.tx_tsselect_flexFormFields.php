@@ -1,13 +1,16 @@
 <?php
 
-class tx_tsselect_flexFormFields {
-    var $obj_TypoScript = null;
-    var $pid  = null;
-    var $obj_page = null;
+class tx_tsselect_flexFormFields
+{
+    public $obj_TypoScript = null;
+    public $pid            = null;
+    public $obj_page       = null;
 
-    function addFields($config) {
+    public function addFields($config)
+    {
         $arr_list = $this->loadTS($config);
-        if( empty($arr_list) ) {
+
+        if (empty($arr_list)) {
             return $config;
         }
 
@@ -15,7 +18,7 @@ class tx_tsselect_flexFormFields {
         $arr_list = $arr_list['plugin.']['tx_tsselect_pi1.']['objList.'];
 
         // Sortieren
-        usort($arr_list, create_function(
+        uasort($arr_list, create_function(
             '$a, $b',
             'return strcmp($a["title"], $b["title"]);'
         ));
@@ -24,12 +27,11 @@ class tx_tsselect_flexFormFields {
         $optionList = array();
         $usergroup  = explode(",",$GLOBALS['BE_USER']->user['usergroup']);
 
-        if ( sizeof($arr_list) > 0 ) {
-            foreach ( $arr_list as $key => $data ) {
+        if (sizeof($arr_list) > 0) {
+            foreach ($arr_list as $key => $data) {
+                $hidegroup = explode(",", $data['hideBeGroups']);
 
-                $hidegroup = explode(",",$data['hideBeGroups']);
-
-                if ( !$this->array_search_all($usergroup,$hidegroup) ) { # hide in backend
+                if (! $this->array_search_all($usergroup,$hidegroup)) { # hide in backend
                     $optionList[] = array(
                         0 => $data['title'],
                         1 => $key,
@@ -43,12 +45,17 @@ class tx_tsselect_flexFormFields {
         return $config;
     }
 
-    function array_search_all($needleAr,$haystackAr) {
-        foreach ( $needleAr as $nkey => $nval ) {
-            foreach ( $haystackAr as $hkey => $hval ) {
-                if ( ($nval > 0) && ($hval > 0) ) {
-                    if ( $nval == $hval ) return true;
-                } else continue;
+    public function array_search_all ($needleAr, $haystackAr)
+    {
+        foreach ($needleAr as $nkey => $nval) {
+            foreach ($haystackAr as $hkey => $hval) {
+                if (($nval > 0) && ($hval > 0)) {
+                    if ($nval == $hval) {
+                        return true;
+                    }
+                } else {
+                    continue;
+                }
             }
         }
 
@@ -56,25 +63,26 @@ class tx_tsselect_flexFormFields {
     }
 
     // Load the TypoScript Conf Array in the Backend
-    private function loadTS(&$conf,$pageUid = 0) {
-        if ( intval($pageUid) > 0 ) {
+    private function loadTS(&$conf, $pageUid = 0) {
+        if (intval($pageUid) > 0) {
             $pid = intval($pageUid);
-        } elseif ( intval($conf['row']['pid']) > 0 ) {
+        } elseif (intval($conf['row']['pid']) > 0) {
             $pid = intval($conf['row']['pid']);
         } else {
             $url = $_GET['returnUrl'];
             $pid = intval(substr($url, strpos($url, 'id=') + 3));
         }
 
-        //$ps  = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_pageSelect');
-        $rootline = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Utility\RootlineUtility::class,
-            $pid
+        /** @var \TYPO3\CMS\Frontend\Page\PageRepository $ps */
+        $ps       = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\CMS\Frontend\Page\PageRepository'
         );
 
-        //$rootline = $ps->getRootLine($pid);
-        $rootline = $rootline->get();
-        if ( empty($rootline) ) return false;
+        $rootline = $ps->getRootLine($pid);
+
+        if (empty($rootline)) {
+            return false;
+        }
 
         /** @var \TYPO3\CMS\Core\TypoScript\ExtendedTemplateService $tsObj */
         $tsObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
