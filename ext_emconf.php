@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "ts_select".
  *
- * Auto generated 07-08-2013 11:06
+ * Auto generated 16-09-2013 11:01
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
