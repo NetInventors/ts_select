@@ -16,7 +16,7 @@ $EM_CONF[$_EXTKEY] = array (
 and the BE User is able to select it like a Content Element.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '1.3.0',
+	'version' => '2.0.2',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
